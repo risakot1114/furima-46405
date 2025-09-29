@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   get 'items/index'
+
   # healthチェックはそのまま残す
   get "up" => "rails/health#show", as: :rails_health_check
 
@@ -9,4 +10,8 @@ Rails.application.routes.draw do
 
   # items用のルーティング
   resources :items
+
+   # ユーザー詳細ページのルーティング（ヘッダー用）
+  resources :users, only: [:show]
+  
 end

@@ -1,14 +1,13 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  # パスワードの半角英数字混合チェック
-  validates :password, format: {
-    with: /\A(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+\z/,
-    message: 'は半角英字と数字の両方を含めてください'
-  }, if: -> { password.present? }
+  validates :nickname, presence: true
+  validates :first_name, :last_name, :first_name_kana, :last_name_kana, :birthday, presence: true
 
-  # パスワード確認との一致はDeviseが自動でやってくれる
+  validates :password, presence: true,
+                       length: { minimum: 6, message: 'は6文字以上で入力してください' },
+                       format: { with: /\A(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+\z/,
+                                 message: 'は半角英字と数字の両方を含めてください' },
+                       if: -> { password.present? }
 end
