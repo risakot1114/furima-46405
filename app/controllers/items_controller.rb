@@ -27,8 +27,16 @@ class ItemsController < ApplicationController
   end
 
   def update
-    item = Item.find(params[:id])
-    item.update(item_params)
+    @item = Item.find(params[:id])
+
+    # 出品者以外は編集できない
+    redirect_to root_path and return unless current_user == @item.user
+
+    if @item.update(item_params)
+      redirect_to @item
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private
