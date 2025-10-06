@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
-  before_action :set_item, only: [:edit, :update, :show]
+  before_action :set_item, only: [:edit, :update, :show, :destroy]
   before_action :move_to_root_unless_owner, only: [:edit, :update, :destroy]
 
   def index
