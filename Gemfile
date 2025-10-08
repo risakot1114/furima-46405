@@ -75,7 +75,7 @@ group :production do
 end
 
 gem 'active_hash'
-
+gem 'pry-rails'
 gem 'devise'
 
 group :development, :test do
