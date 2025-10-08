@@ -1,10 +1,9 @@
-# app/controllers/orders_controller.rb
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item
-  before_action :move_to_root, only: [:new, :create]
+  before_action :move_to_root
 
-  def new
+  def index
     @order_address = OrderAddress.new
   end
 
@@ -14,7 +13,7 @@ class OrdersController < ApplicationController
       @order_address.save
       redirect_to root_path
     else
-      render :new
+      render :index, status: :unprocessable_entity
     end
   end
 
@@ -25,11 +24,13 @@ class OrdersController < ApplicationController
   end
 
   def move_to_root
-    redirect_to root_path if current_user.id == @item.user_id || @item.order.present?
+    return unless current_user.id == @item.user_id || @item.order.present?
+
+    redirect_to root_path
   end
 
   def order_params
-    params.require(:order_address).permit(:postal_code, :prefecture_id, :city, :address, :building_name,
-                                          :phone_number, :token).merge(user_id: current_user.id, item_id: @item.id)
+    params.require(:order_address).permit(:postal_code, :prefecture_id, :city, :address, :building_name, :phone_number, :token)
+          .merge(user_id: current_user.id, item_id: @item.id)
   end
 end
