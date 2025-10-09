@@ -67,6 +67,29 @@ RSpec.describe 'Orders', type: :request do
         post item_orders_path(@item), params: { order_address: { postal_code: '' } }
         expect(response.body).to include('郵便番号を入力してください')
       end
+
+      it '情報に不備がある場合でも、カード情報以外の入力は保持される' do
+        invalid_params = {
+          order_address: {
+            postal_code: '', # invalid to trigger errors
+            prefecture_id: 2,
+            city: '横浜市緑区',
+            address: '青山1-1-1',
+            building_name: '柳ビル103',
+            phone_number: '09012345678',
+            token: '' # blank token so card fields should be re-entered
+          }
+        }
+        post item_orders_path(@item), params: invalid_params
+        expect(response).to have_http_status(422)
+        # 入力値保持（postal_code以外）
+        expect(response.body).to include('横浜市緑区')
+        expect(response.body).to include('青山1-1-1')
+        expect(response.body).to include('柳ビル103')
+        expect(response.body).to include('09012345678')
+        # 郵便番号は空のまま
+        expect(response.body).to include('id="postal-code"')
+      end
     end
 
     context 'ログインしていないとき' do
