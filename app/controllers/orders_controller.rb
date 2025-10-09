@@ -35,7 +35,8 @@ class OrdersController < ApplicationController
     ).merge(
       user_id: current_user.id,
       item_id: @item.id,
-      token: params.dig(:order_address, :token)
+      # フロントからは name='token'（トップレベル）で送信されるため、両方を許可
+      token: params[:token] || params.dig(:order_address, :token)
     )
   end
 
