@@ -9,7 +9,4 @@ ja:
         building_name: 建物名
         phone_number: 電話番号
         token: トークン
-  errors:
-    messages:
-      blank: "%{attribute}を入力してください"
-
+ 

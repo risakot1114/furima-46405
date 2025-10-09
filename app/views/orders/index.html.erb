@@ -28,19 +28,21 @@
       <p class='item-payment-price'>
         ¥<%= @item.price %>
       </p>
-       <% if @order_address.errors.any? %>
-    <div class="error-explanation">
-      <ul>
-        <% @order_address.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
     </div>
     <%# /支払額の表示 %>
+  <% if @order_address.errors.any? %>
+  <div class="error-alert">
+    <ul>
+      <% @order_address.errors.full_messages.each do |msg| %>
+        <li class="error-message"><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 
   <%= form_with model: @order_address, url: item_orders_path(@item), id: 'charge-form', local: true do |f| %>
+
     <%# カード情報の入力 %>
     <div class='credit-card-form'>
       <h1 class='info-input-haedline'>
