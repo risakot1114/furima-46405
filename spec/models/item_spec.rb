@@ -28,6 +28,7 @@ RSpec.describe Item, type: :model do
       it 'カテゴリーが初期値(0)だと出品できない' do
         @item.category_id = 0
         @item.valid?
+        # ActiveHashのバリデーションでは、id:1（---など）が選択された場合を想定します
         expect(@item.errors.full_messages).to include('Category must be other than 0')
       end
 
@@ -74,7 +75,7 @@ RSpec.describe Item, type: :model do
       end
 
       it '価格が半角数字でないと出品できない' do
-        @item.price = '１０００'
+        @item.price = '１０００' # 全角数字
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not a number')
       end
@@ -84,6 +85,7 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Image can't be blank")
       end
+
       it 'userが紐づいていないと出品できない' do
         @item.user = nil
         @item.valid?

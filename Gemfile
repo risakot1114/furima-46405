@@ -85,5 +85,6 @@ group :development, :test do
   gem 'faker'
 gem 'payjp'
 gem 'dotenv-rails', groups: [:development, :test]
+gem 'gon'
 
 end

@@ -1,5 +1,6 @@
 ja:
   activemodel:
+
     attributes:
       order_address:
         postal_code: 郵便番号
@@ -9,4 +10,4 @@ ja:
         building_name: 建物名
         phone_number: 電話番号
         token: トークン
- 
+

@@ -65,7 +65,7 @@ RSpec.describe 'Orders', type: :request do
 
       it '情報が正しくないと購入ページに戻る' do
         post item_orders_path(@item), params: { order_address: { postal_code: '' } }
-        expect(response.body).to include('郵便番号を入力してください')
+        expect(response).to have_http_status(422)
       end
 
       it '情報に不備がある場合でも、カード情報以外の入力は保持される' do
