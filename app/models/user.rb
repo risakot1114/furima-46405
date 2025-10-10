@@ -23,4 +23,5 @@ class User < ApplicationRecord
                       message: 'は全角カタカナで入力してください' }
 
   has_many :items, dependent: :destroy
+  has_many :orders
 end
