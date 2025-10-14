@@ -1,5 +1,5 @@
 <%= render "shared/header" %>
-
+<% gon.stripe_public_key = Rails.application.credentials.dig(:stripe, :public_key) || "" %>
 <%# 商品の概要 %>
 <div class="item-show">
   <div class="item-box">
@@ -9,6 +9,8 @@
   <div class="item-img-content">
     <% if @item.image.attached? %>
       <%= image_tag @item.image, class: "item-box-img" %>
+    <% else %>
+    <%= image_tag "default-item.jpeg", class: "item-box-img" %>
     <% end %>
     <% if @item.sold_out? %>
       <div class="sold-out">

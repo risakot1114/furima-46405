@@ -1,5 +1,7 @@
 const pay = () => {
-  const payjp = Payjp(gon.public_key);
+  const publicKey = (typeof gon !== 'undefined' && gon.public_key) ? gon.public_key : '';
+  if (!publicKey) return; 
+   const payjp = Payjp(publicKey);
   const elements = payjp.elements();
 
   const numberElement = elements.create('cardNumber');
