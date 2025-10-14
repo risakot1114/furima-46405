@@ -78,12 +78,12 @@ end
 gem 'active_hash'
 gem 'pry-rails'
 gem 'devise'
+gem 'payjp'
 
 group :development, :test do
  gem 'rspec-rails', '~> 4.0.0'
   gem 'factory_bot_rails'
   gem 'faker'
-gem 'payjp'
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'gon'
 
