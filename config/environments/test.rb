@@ -44,6 +44,9 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
+  # Specsは英語メッセージを期待しているため、テスト時は英語ロケールに固定
+  config.i18n.default_locale = :en
+
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
@@ -52,6 +55,9 @@ Rails.application.configure do
 
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = []
+
+  # ActiveRecord 7.1 の Fiber/async 実行が mysql2 と干渉するため、テストでは無効化
+  config.active_record.async_query_executor = :inline
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true

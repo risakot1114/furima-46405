@@ -1,0 +1,13 @@
+ja:
+  activemodel:
+
+    attributes:
+      order_address:
+        postal_code: 郵便番号
+        prefecture_id: 都道府県
+        city: 市区町村
+        address: 番地
+        building_name: 建物名
+        phone_number: 電話番号
+        token: トークン
+
