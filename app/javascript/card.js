@@ -1,7 +1,7 @@
 const pay = () => {
   const publicKey = (typeof gon !== 'undefined' && gon.public_key) ? gon.public_key : '';
   if (!publicKey) return; 
-   const payjp = Payjp(publicKey);
+  const payjp = Payjp(publicKey);
   const elements = payjp.elements();
 
   const numberElement = elements.create('cardNumber');
@@ -18,9 +18,13 @@ const pay = () => {
     e.preventDefault();
 
     payjp.createToken(numberElement).then((response) => {
+      const errorBox = document.getElementById('card-error'); // ← 追加！
+
       if (response.error) {
-        alert(`カード情報にエラーがあります: ${response.error.message}`);
+        errorBox.innerText = `カード情報にエラーがあります: ${response.error.message}`;
+        errorBox.style.display = 'block';
       } else {
+        errorBox.style.display = 'none'; // 前のエラー消す
         const token = response.id;
         const tokenInput = document.createElement("input");
         tokenInput.setAttribute("type", "hidden");
