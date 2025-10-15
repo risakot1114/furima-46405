@@ -16,6 +16,7 @@ class OrdersController < ApplicationController
       @order_address.save
       redirect_to root_path
     else
+      gon.public_key = ENV['PAYJP_PUBLIC_KEY']
       render :index, status: :unprocessable_entity
     end
   end
@@ -32,7 +33,7 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order_address).permit(
-      :postal_code, :prefecture_id, :city, :address, :building_name, :phone_number
+      :postal_code, :prefecture_id, :city, :addresses, :building_name, :phone_number, :token
     ).merge(
       user_id: current_user.id,
       item_id: @item.id,
@@ -53,6 +54,7 @@ class OrdersController < ApplicationController
   end
 
   def set_locale
-    I18n.locale = :ja if Rails.env.test?
+    # 本番環境では日本語、テスト環境では英語
+    I18n.locale = Rails.env.test? ? :en : :ja
   end
 end

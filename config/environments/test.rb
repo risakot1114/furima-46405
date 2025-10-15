@@ -44,8 +44,9 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
-  # Specsは英語メッセージを期待しているため、テスト時は英語ロケールに固定
+  # テスト時は英語ロケールに固定
   config.i18n.default_locale = :en
+  config.i18n.available_locales = [:en, :ja]
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr

@@ -34,13 +34,13 @@ RSpec.describe OrderAddress, type: :model do
       it 'postal_codeが「3桁-4桁」以外では保存できない（ハイフン無し）' do
         @order_address.postal_code = '1234567'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include('Postal code must be in the format XXX-XXXX')
+        expect(@order_address.errors.full_messages).to include('Postal code is invalid. Enter it as follows (e.g. 123-4567)')
       end
 
       it 'phone_numberが11桁以内でないと保存できない' do
         @order_address.phone_number = '123456789012'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include('Phone number must be 10-11 digits, numbers only')
+        expect(@order_address.errors.full_messages).to include('Phone number is too long (maximum is 11 characters)')
       end
 
       it 'phone_numberが空では保存できない' do
@@ -52,13 +52,13 @@ RSpec.describe OrderAddress, type: :model do
       it 'phone_numberは半角数字のみ（ハイフン不可）でないと保存できない' do
         @order_address.phone_number = '090-1234-5678'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include('Phone number must be 10-11 digits, numbers only')
+        expect(@order_address.errors.full_messages).to include('Phone number is invalid. Input only number')
       end
 
       it 'phone_numberが9桁以下では保存できない' do
         @order_address.phone_number = '123456789'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include('Phone number must be 10-11 digits, numbers only')
+        expect(@order_address.errors.full_messages).to include('Phone number is too short')
       end
 
       it 'prefecture_idが空では保存できない' do
@@ -67,10 +67,10 @@ RSpec.describe OrderAddress, type: :model do
         expect(@order_address.errors.full_messages).to include("Prefecture can't be blank")
       end
 
-      it 'prefecture_idが初期値(0)では保存できない' do
-        @order_address.prefecture_id = 0
+      it 'prefecture_idが初期値(1)では保存できない' do
+        @order_address.prefecture_id = 1
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include('Prefecture must be other than 0')
+        expect(@order_address.errors.full_messages).to include('Prefecture must be other than 1')
       end
 
       it 'cityが空では保存できない' do
@@ -80,9 +80,9 @@ RSpec.describe OrderAddress, type: :model do
       end
 
       it 'addressが空では保存できない' do
-        @order_address.address = ''
+        @order_address.addresses = ''
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Address can't be blank")
+        expect(@order_address.errors.full_messages).to include("Addresses can't be blank")
       end
 
       it 'user_idが紐付いていなければ購入できない' do
