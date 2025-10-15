@@ -22,6 +22,7 @@ class ItemsController < ApplicationController
   end
 
   def show
+    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
   end
 
   def edit
