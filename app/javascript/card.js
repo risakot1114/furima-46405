@@ -14,31 +14,48 @@ const pay = () => {
 
   const form = document.getElementById('charge-form');
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-    payjp.createToken(numberElement).then((response) => {
-      const errorBox = document.getElementById('card-error'); // ← 追加！
+  payjp.createToken(numberElement).then((response) => {
+    // まず既存のエラー表示をクリア
+    const errorBox = document.querySelector('.error-alert');
+    if (errorBox) {
+      errorBox.innerHTML = '';
+    }
 
-      if (response.error) {
-        errorBox.innerText = `カード情報にエラーがあります: ${response.error.message}`;
-        errorBox.style.display = 'block';
-      } else {
-        errorBox.style.display = 'none'; // 前のエラー消す
-        const token = response.id;
-        const tokenInput = document.createElement("input");
-        tokenInput.setAttribute("type", "hidden");
-        tokenInput.setAttribute("name", "order_address[token]");
-        tokenInput.setAttribute("value", token);
-        form.appendChild(tokenInput);
-        form.submit();
-      }
+    if (response.error) {
+      // エラー表示用 div を作成
+      const errorContainer = document.createElement('div');
+      errorContainer.classList.add('error-alert');
 
-      numberElement.clear();
-      expiryElement.clear();
-      cvcElement.clear();
-    });
+      const errorList = document.createElement('ul');
+      const errorItem = document.createElement('li');
+      errorItem.classList.add('error-message');
+      errorItem.innerText = `カード情報にエラーがあります: ${response.error.message}`;
+
+      errorList.appendChild(errorItem);
+      errorContainer.appendChild(errorList);
+
+      // フォームの先頭に表示
+      form.prepend(errorContainer);
+
+    } else {
+      // エラーなしの場合はフォーム送信
+      const token = response.id;
+      const tokenInput = document.createElement("input");
+      tokenInput.setAttribute("type", "hidden");
+      tokenInput.setAttribute("name", "order_address[token]");
+      tokenInput.setAttribute("value", token);
+      form.appendChild(tokenInput);
+      form.submit();
+    }
+
+    numberElement.clear();
+    expiryElement.clear();
+    cvcElement.clear();
   });
+});
 };
 
 window.addEventListener("turbo:load", pay);
