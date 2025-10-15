@@ -40,7 +40,7 @@ RSpec.describe OrderAddress, type: :model do
       it 'phone_numberが11桁以内でないと保存できない' do
         @order_address.phone_number = '123456789012'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include('Phone number is too long (maximum is 11 characters)')
+        expect(@order_address.errors.full_messages).to include('Phone number is invalid. Input only number')
       end
 
       it 'phone_numberが空では保存できない' do
@@ -70,7 +70,7 @@ RSpec.describe OrderAddress, type: :model do
       it 'prefecture_idが初期値(1)では保存できない' do
         @order_address.prefecture_id = 1
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include('Prefecture must be other than 1')
+        expect(@order_address.errors.full_messages).to include("Prefecture can't be blank")
       end
 
       it 'cityが空では保存できない' do

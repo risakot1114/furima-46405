@@ -54,7 +54,7 @@ class OrdersController < ApplicationController
   end
 
   def set_locale
-    # 本番環境では日本語、テスト環境では英語
-    I18n.locale = Rails.env.test? ? :en : :ja
+    # OrderAddressは英語エラーメッセージを使用
+    I18n.locale = :en
   end
 end
