@@ -1,7 +1,24 @@
-production:
-  <<: *default
+# config/database.yml
+
+default: &default
   adapter: mysql2
-  database: furima-46405_production 
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
   password: <%= ENV['DATABASE_PASSWORD'] %>
   socket: /var/lib/mysql/mysql.sock
+
+development:
+  <<: *default
+  database: furima-46405_development
+  host: localhost
+
+test:
+  <<: *default
+  database: furima-46405_test
+  host: localhost
+
+production:
+  <<: *default
+  database: furima-46405_production
+  host: localhost
