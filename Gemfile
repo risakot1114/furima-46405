@@ -58,7 +58,7 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
-
+  gem 'rubocop', '1.71.2', require: false
 end
 
 group :test do
@@ -67,12 +67,9 @@ group :test do
   gem "selenium-webdriver"
   gem 'database_cleaner-active_record'
 end
-group :development do
-  gem 'rubocop', '1.71.2', require: false
-end
 
 group :production do
-  gem 'pg'
+  gem 'unicorn', '6.1.0'
 end
 
 gem 'active_hash'
