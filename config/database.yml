@@ -20,3 +20,4 @@ production:
   <<: *default
   database: furima-46405_production
   host: localhost
+
