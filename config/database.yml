@@ -1,26 +1,7 @@
-development:
-  adapter: mysql2
-  encoding: utf8
-  pool: 5
-  username: root
-  password: <%= ENV['DATABASE_PASSWORD'] %>
-  database: furima_46405_development
-  host: localhost
-
-test:
-  adapter: mysql2
-  encoding: utf8
-  pool: 5
-  username: root
-  password: <%= ENV['DATABASE_PASSWORD'] %>
-  database: furima_46405_test
-  host: localhost
-
 production:
   adapter: mysql2
   encoding: utf8
-  pool: 5
+  database: furima-46405_production
   username: root
   password: <%= ENV['DATABASE_PASSWORD'] %>
-  database: furima_46405_production
-  host: localhost
+  socket: /var/lib/mysql/mysql.sock
