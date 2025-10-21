@@ -12,13 +12,16 @@ development:
 
 test:
  <<: *default
-  adapter: mysql2
+ adapter: mysql2
  username: root
-  password:
-  host: localhost
-  database: furima-46405_test
+ password:
+ host: localhost
+ database: furima-46405_test
 
 production:
   <<: *default
-  adapter: postgresql
-  url: <%= ENV['DATABASE_URL'] %>
+  adapter: mysql2
+  database: furima-46405_production
+  username: root
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  socket: /var/lib/mysql/mysql.sock
