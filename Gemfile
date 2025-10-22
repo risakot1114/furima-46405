@@ -89,3 +89,5 @@ gem 'dotenv-rails', groups: [:development, :test]
   gem 'capistrano-rails'
   gem 'capistrano3-unicorn'
 end
+
+gem "nokogiri", force_ruby_platform: true
