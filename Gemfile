@@ -83,4 +83,9 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
 gem 'dotenv-rails', groups: [:development, :test]
+ gem 'capistrano'
+  gem 'capistrano-rbenv'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano3-unicorn'
 end
