@@ -11,12 +11,12 @@ development:
   database: furima-46405_development
 
 test:
- <<: *default
- adapter: mysql2
- username: root
- password:
- host: localhost
- database: furima-46405_test
+  <<: *default
+  adapter: mysql2
+  username: root
+  password:
+  host: localhost
+  database: furima-46405_test
 
 production:
   <<: *default
